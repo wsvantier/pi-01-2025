@@ -1,0 +1,162 @@
+-- MariaDB dump 10.19  Distrib 10.11.6-MariaDB, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: pi
+-- ------------------------------------------------------
+-- Server version	10.11.6-MariaDB-0+deb12u1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `pi`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `pi` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+
+USE `pi`;
+
+--
+-- Table structure for table `Clientes`
+--
+
+DROP TABLE IF EXISTS `Clientes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Clientes` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Nome` varchar(255) NOT NULL,
+  `Telefone` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `Contas_a_Pagar`
+--
+
+DROP TABLE IF EXISTS `Contas_a_Pagar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Contas_a_Pagar` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Fornecedor` int(11) NOT NULL,
+  `Data_de_Vencimento` date NOT NULL,
+  `Valor` decimal(10,2) NOT NULL,
+  `Situacao` enum('PAGA','PENDENTE') NOT NULL DEFAULT 'PENDENTE',
+  PRIMARY KEY (`ID`),
+  KEY `Fornecedor` (`Fornecedor`),
+  CONSTRAINT `Contas_a_Pagar_ibfk_1` FOREIGN KEY (`Fornecedor`) REFERENCES `Fornecedor` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `Contas_a_Receber`
+--
+
+DROP TABLE IF EXISTS `Contas_a_Receber`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Contas_a_Receber` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_Cliente` int(11) NOT NULL,
+  `Valor` decimal(10,2) NOT NULL,
+  `Data_da_Venda` date NOT NULL DEFAULT curdate(),
+  `Situacao` enum('PAGO','PENDENTE') NOT NULL DEFAULT 'PENDENTE',
+  PRIMARY KEY (`ID`),
+  KEY `ID_Cliente` (`ID_Cliente`),
+  CONSTRAINT `Contas_a_Receber_ibfk_1` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `Estoque`
+--
+
+DROP TABLE IF EXISTS `Estoque`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Estoque` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Descricao` varchar(255) NOT NULL,
+  `Categoria` enum('Alimentos','Bebidas','Laticínios','Produtos de Higiene','Padaria','Congelados','Produtos para Pet','Bazar e Utilidades') NOT NULL,
+  `Validade` date DEFAULT NULL,
+  `Quantidade` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `Fornecedor`
+--
+
+DROP TABLE IF EXISTS `Fornecedor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Fornecedor` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Nome` varchar(255) NOT NULL,
+  `Email` varchar(255) DEFAULT NULL,
+  `Telefone` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `Item_Venda`
+--
+
+DROP TABLE IF EXISTS `Item_Venda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Item_Venda` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_Venda` int(11) NOT NULL,
+  `ID_Produto` int(11) NOT NULL,
+  `Quantidade` int(11) DEFAULT NULL,
+  `Valor_Unidade` int(11) DEFAULT NULL,
+  `Total` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ID_Venda` (`ID_Venda`),
+  KEY `ID_Produto` (`ID_Produto`),
+  CONSTRAINT `Item_Venda_ibfk_1` FOREIGN KEY (`ID_Venda`) REFERENCES `Vendas` (`ID`),
+  CONSTRAINT `Item_Venda_ibfk_2` FOREIGN KEY (`ID_Produto`) REFERENCES `Estoque` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `Vendas`
+--
+
+DROP TABLE IF EXISTS `Vendas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Vendas` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_Cliente` int(11) DEFAULT NULL,
+  `Preco` decimal(10,2) DEFAULT NULL,
+  `Fiado` enum('SIM','NÃO') NOT NULL DEFAULT 'NÃO',
+  PRIMARY KEY (`ID`),
+  KEY `ID_Cliente` (`ID_Cliente`),
+  CONSTRAINT `Vendas_ibfk_1` FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2025-03-28 15:36:49
+

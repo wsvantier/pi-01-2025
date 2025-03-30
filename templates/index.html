@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <title>Manual do Sistema</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+<body>
+     <header class="text-bg-dark">
+        <div class="container mb-5">
+            <header class="d-flex justify-content-center py-3">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a href="{{ url_for('index')}}" class="nav-link active" aria-current="page">Home</a></li>
+                    <li class="nav-item"><a href="{{ url_for('estoque')}}" class="nav-link text-light">Estoque</a></li>
+                    <li class="nav-item"><a href="{{ url_for('vendas')}}" class="nav-link text-light">Vendas</a></li>
+                    <li class="nav-item"><a href="{{ url_for('fornecedores')}}" class="nav-link text-light">Fornecedores</a></li>
+                    <li class="nav-item"><a href="{{ url_for('clientes')}}" class="nav-link text-light">Clientes</a></li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Contas</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('lista_fiado')}}">A Receber</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('lista_pagar')}}">A Pagar</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </header>
+        </div>
+    </header>
+    <main class="container mt-5">
+        <h1>Manual do Sistema de Gerenciamento</h1>
+
+        <section class="mb-4">
+            <h2>Navegação Principal</h2>
+            <p>A barra de navegação no topo da tela permite acessar as principais seções do sistema:</p>
+            <ul>
+                <li><strong>Home:</strong> Página inicial com informações gerais e documentação do sistema.</li>
+                <li><strong>Estoque:</strong> Gerenciamento de produtos em estoque.</li>
+                <li><strong>Vendas:</strong> Registro e acompanhamento de vendas.</li>
+                <li><strong>Fornecedores:</strong> Gerenciamento de informações de fornecedores.</li>
+                <li><strong>Clientes:</strong> Gerenciamento de informações de clientes.</li>
+                <li><strong>Contas:</strong> Controle de contas a pagar e a receber.</li>
+            </ul>
+        </section>
+
+        <section class="mb-4">
+            <h2>Funcionalidades Detalhadas</h2>
+
+            <h3>1. Estoque</h3>
+            <ul>
+                <li><strong>Visualização de Produtos:</strong> Acesse a página "Estoque" para visualizar todos os produtos cadastrados.</li>
+                <li><strong>Cadastro de Produtos:</strong> Clique em "Cadastrar Produto" para adicionar um novo produto.</li>
+                <li><strong>Edição de Produtos:</strong> Na lista de produtos, clique em "Editar" ao lado do produto desejado.</li>
+            </ul>
+
+            <h3>2. Vendas</h3>
+            <ul>
+                <li><strong>Registro de Vendas:</strong> Acesse a página "Vendas" e clique em "Nova Venda".</li>
+                <li><strong>Visualização de Vendas:</strong> Acesse a página "Vendas" para visualizar o histórico de vendas.</li>
+            </ul>
+
+            <h3>3. Fornecedores</h3>
+            <ul>
+                <li><strong>Visualização de Fornecedores:</strong> Acesse a página "Fornecedores" para visualizar todos os fornecedores.</li>
+                <li><strong>Cadastro de Fornecedores:</strong> Clique em "Cadastrar Fornecedor" para adicionar um novo fornecedor.</li>
+                <li><strong>Edição de Fornecedores:</strong> Na lista de fornecedores, clique em "Editar" ao lado do fornecedor desejado.</li>
+            </ul>
+
+            <h3>4. Clientes</h3>
+            <ul>
+                <li><strong>Visualização de Clientes:</strong> Acesse a página "Clientes" para visualizar todos os clientes.</li>
+                <li><strong>Cadastro de Clientes:</strong> Clique em "Cadastrar Cliente" para adicionar um novo cliente.</li>
+                <li><strong>Edição de Clientes:</strong> Na lista de clientes, clique em "Editar" ao lado do cliente desejado.</li>
+            </ul>
+
+            <h3>5. Contas</h3>
+            <ul>
+                <li><strong>Contas a Pagar:</strong> Acesse "Contas" -> "A Pagar" para visualizar as contas a pagar.</li>
+                <li><strong>Contas a Receber:</strong> Acesse "Contas" -> "A receber" para visualizar as contas a receber.</li>
+            </ul>
+        </section>
+
+        <section class="mb-4">
+            <h2>Observações</h2>
+            <ul>
+                <li>Certifique-se de preencher todos os campos obrigatórios nos formulários.</li>
+                <li>Utilize a barra de navegação para alternar entre as seções do sistema.</li>
+                <li>Em caso de dúvidas, consulte a documentação disponível na página inicial.</li>
+            </ul>
+        </section>
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
+</html>

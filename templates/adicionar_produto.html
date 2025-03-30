@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Adicionar Produto</title>
+</head>
+
+<body class="bg-light">
+    <div class="container">
+        <h1 class="display-6 text-center bg-dark text-light py-2 rounded">Adicionar Produto</h1>
+
+        <form method="post" class="p-4 bg-white shadow rounded">
+            <div class="mb-3">
+                <label class="form-label">Descrição do Produto:</label>
+                <input type="text" name="descricao" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Categoria:</label>
+                    <select name="categoria" class="form-select" required>
+                        <option value="" data-default disabled selected></option>
+                        <option value="Alimentos">Alimentos</option>
+                        <option value="Bebidas"> Bebidas</option>
+                        <option value="Laticínios"> Laticínios</option>
+                        <option value="Produtos de Higiene">Produtos de Higiene</option>
+                        <option value="Padaria">Padaria</option>
+                        <option value="Congelados">Congelados</option>
+                        <option value="Produtos para Pet">Produtos para Pet</option>
+                        <option value="Bazar e Utilidades">Bazar e Utilidades</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Fornecedor</label>
+                    <select name="fornecedor" class="form-select" required>
+                        <option value="" data-default disabled selected></option>
+                        {% for item in dados %}
+
+                        <option value="{{item.Nome}}">{{ item.Nome }}</option>
+
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="valor" class="form-label"> Valor da Compra</label>
+                    <input type="number" name="valor" id="valor" class="form-control">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Quantidade :</label>
+                    <input type="number" name="quantidade" class="form-control" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Data de Validade:</label>
+                    <input type="date" name="validade" class="form-control" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Vencimento da fatura:</label>
+                    <input type="date" name="divida" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('estoque') }}" class="btn btn-outline-primary"> Voltar para Estoque </a>
+                <button type="submit" class="btn btn-outline-success">Salvar</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
