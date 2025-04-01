@@ -9,7 +9,7 @@ app = Flask(__name__)
 # Função para conectar ao banco de dados MariaDB
 def mariadb(query):
     con = pymysql.connect(
-        host='192.168.1.100',
+        host='localhost',
         user='willian',
         password='22101998',
         database='pi',
