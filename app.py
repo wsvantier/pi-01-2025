@@ -177,7 +177,7 @@ def finalizar_compra():
        
         
     if resposta['fiado'] == 'SIM':
-        mariadb(f'INSERT INTO Contas_a_Receber (ID_Cliente,Valor, Data_da_Venda) VALUES ("{id_cliente}","{soma(itens_carrinho)}","{hoje.strftime('%Y-%m-%d')}")')
+        mariadb(f'INSERT INTO Contas_a_Receber (ID_Cliente,Valor, Data_da_Venda) VALUES ("{id_cliente}","{soma(itens_carrinho)}","{hoje.strftime("%Y-%m-%d")}")')
     
     
    
