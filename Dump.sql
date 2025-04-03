@@ -44,7 +44,6 @@ CREATE TABLE `Contas_a_Pagar` (
   `Valor` decimal(10,2) NOT NULL,
   `Situacao` enum('PAGA','PENDENTE') NOT NULL DEFAULT 'PENDENTE',
   PRIMARY KEY (`ID`),
-  FOREIGN KEY (`Fornecedor`) REFERENCES `Fornecedor`(`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `Contas_a_Receber`;
@@ -55,7 +54,6 @@ CREATE TABLE `Contas_a_Receber` (
   `Data_da_Venda` date NOT NULL,
   `Situacao` enum('PAGO','PENDENTE') NOT NULL DEFAULT 'PENDENTE',
   PRIMARY KEY (`ID`),
-  FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes`(`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `Item_Venda`;
@@ -67,8 +65,6 @@ CREATE TABLE `Item_Venda` (
   `Valor_Unidade` decimal(10,2) DEFAULT NULL,
   `Total` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  FOREIGN KEY (`ID_Venda`) REFERENCES `Vendas`(`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`ID_Produto`) REFERENCES `Estoque`(`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `Vendas`;
@@ -78,5 +74,4 @@ CREATE TABLE `Vendas` (
   `Preco` decimal(10,2) DEFAULT NULL,
   `Fiado` enum('SIM','NÃO') NOT NULL DEFAULT 'NÃO',
   PRIMARY KEY (`ID`),
-  FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes`(`ID`) ON DELETE SET NULL ON UPDATE CASCADE
 );
