@@ -2,6 +2,11 @@ CREATE DATABASE IF NOT EXISTS `pi` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4
 
 USE `pi`;
 
+-- Criar usuário e conceder privilégios
+CREATE USER IF NOT EXISTS 'Teste'@'localhost' IDENTIFIED BY '12345';
+GRANT ALL PRIVILEGES ON `pi`.* TO 'Teste'@'localhost';
+FLUSH PRIVILEGES;
+
 -- Tabelas principais
 DROP TABLE IF EXISTS `Clientes`;
 CREATE TABLE `Clientes` (
@@ -30,7 +35,7 @@ CREATE TABLE `Estoque` (
   PRIMARY KEY (`ID`)
 );
 
--- Tabelas com chave estrangeira removida
+-- Tabelas com chaves estrangeiras
 DROP TABLE IF EXISTS `Contas_a_Pagar`;
 CREATE TABLE `Contas_a_Pagar` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -38,7 +43,8 @@ CREATE TABLE `Contas_a_Pagar` (
   `Data_de_Vencimento` date NOT NULL,
   `Valor` decimal(10,2) NOT NULL,
   `Situacao` enum('PAGA','PENDENTE') NOT NULL DEFAULT 'PENDENTE',
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  FOREIGN KEY (`Fornecedor`) REFERENCES `Fornecedor`(`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `Contas_a_Receber`;
@@ -48,7 +54,8 @@ CREATE TABLE `Contas_a_Receber` (
   `Valor` decimal(10,2) NOT NULL,
   `Data_da_Venda` date NOT NULL,
   `Situacao` enum('PAGO','PENDENTE') NOT NULL DEFAULT 'PENDENTE',
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes`(`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `Item_Venda`;
@@ -59,7 +66,9 @@ CREATE TABLE `Item_Venda` (
   `Quantidade` int(11) DEFAULT NULL,
   `Valor_Unidade` decimal(10,2) DEFAULT NULL,
   `Total` decimal(10,2) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  FOREIGN KEY (`ID_Venda`) REFERENCES `Vendas`(`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`ID_Produto`) REFERENCES `Estoque`(`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS `Vendas`;
@@ -68,5 +77,6 @@ CREATE TABLE `Vendas` (
   `ID_Cliente` int(11) DEFAULT NULL,
   `Preco` decimal(10,2) DEFAULT NULL,
   `Fiado` enum('SIM','NÃO') NOT NULL DEFAULT 'NÃO',
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  FOREIGN KEY (`ID_Cliente`) REFERENCES `Clientes`(`ID`) ON DELETE SET NULL ON UPDATE CASCADE
 );
