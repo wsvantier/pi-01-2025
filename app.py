@@ -10,8 +10,8 @@ app = Flask(__name__)
 def mariadb(query):
     con = pymysql.connect(
         host='localhost',
-        user='willian',
-        password='22101998',
+        user='Teste',
+        password='12345',
         database='pi',
         cursorclass=pymysql.cursors.DictCursor
     )
@@ -177,7 +177,7 @@ def finalizar_compra():
        
         
     if resposta['fiado'] == 'SIM':
-        mariadb(f'INSERT INTO Contas_a_Receber (ID_Cliente,Valor) VALUES ("{id_cliente}","{soma(itens_carrinho)}")')
+        mariadb(f'INSERT INTO Contas_a_Receber (ID_Cliente,Valor, Data_da_Venda) VALUES ("{id_cliente}","{soma(itens_carrinho)}","{hoje.strftime('%Y-%m-%d')}")')
     
     
    
