@@ -56,8 +56,8 @@
                 {% for item in dados%}
                 <tr>
                     <td> {{ item.Nome }} </td>
-                    <td> {{ item.Email }} </td>
                     <td> {{ item.Telefone}} </td>
+                    <td> {{ item.Email}} </td>
                     <td><a href="{{ url_for('alt_fornecedor', id=item.ID) }}" class="badge bg-info link-offset-2 link-underline link-underline-opacity-0">Editar</a>
                 </tr>
                 {% endfor %}
