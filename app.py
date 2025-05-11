@@ -205,7 +205,7 @@ def receber(id):
 @app.route('/dividas')
 def lista_pagar():
     return render_template('lista_pagar.html', hoje=hoje , dados=mariadb(
-        'SELECT d.ID , f.nome Fornecedor, DATE_FORMAT(d.Data_de_Vencimento, "%d/%m/%Y") AS Data_de_Vencimento, d.Valor, d.Situacao FROM Contas_a_Pagar AS d JOIN Fornecedor AS f ON f.ID = d.Fornecedor WHERE Situacao = "PENDENTE" ORDER BY 3 ;'
+        'SELECT d.ID , f.nome Fornecedor, DATE_FORMAT(d.Data_de_Vencimento, "%d/%m/%Y") AS Data_de_Vencimento, d.Valor, d.Situacao FROM Contas_a_Pagar AS d JOIN Fornecedor AS f ON f.ID = d.Fornecedor WHERE Situacao = "PENDENTE" AND d.Valor > 0 ORDER BY 3 ;'
     ))
     
 @app.route('/dividas/<id>')
